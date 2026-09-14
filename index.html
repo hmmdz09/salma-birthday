@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#120c18">
+  <meta name="description" content="Selamat Ulang Tahun Salma Aulia! Ruang istimewa penuh kenangan, harapan, dan doa terbaik.">
+  <title>Happy Birthday Salma Aulia ✨🎂</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+  <!-- Ambient Canvas Background (Starfield / Floating Bokeh) -->
+  <canvas id="ambientCanvas"></canvas>
+
+  <!-- Welcome / Entrance Curtain Overlay -->
+  <div class="curtain-overlay" id="curtainOverlay">
+    <div class="curtain-content glass-card">
+      <div class="curtain-badge">✨ Special Birthday Edition ✨</div>
+      <div class="curtain-avatar-wrap">
+        <img src="assets/foto-01.webp" alt="Salma Aulia" class="curtain-avatar" onerror="this.src='assets/photos/foto-01.webp'">
+        <div class="avatar-ring"></div>
+      </div>
+      <h1 class="curtain-title">A Special Day for<br><span class="highlight-name">Salma Aulia</span></h1>
+      <p class="curtain-sub">Sebuah kado digital penuh kenangan, doa, dan kejutan istimewa untuk hari spesialmu.</p>
+      
+      <button class="btn-primary pulse-btn" id="enterSiteBtn">
+        <span class="btn-icon">🎁</span> Buka Hadiah Spesial
+      </button>
+      <p class="curtain-hint">🎧 Nyalakan volume untuk pengalaman terbaik</p>
+    </div>
+  </div>
+
+  <!-- Audio Element -->
+  <audio id="bgMusic" src="assets/our-song.mp3" preload="auto" loop></audio>
+
+  <!-- Floating Floating Floating Music Widget -->
+  <div class="music-floating-widget" id="musicWidget">
+    <div class="vinyl-record" id="vinylDisc">
+      <img src="assets/foto-02.webp" alt="Cover" class="vinyl-art" onerror="this.src='assets/photos/foto-02.webp'">
+      <div class="vinyl-center"></div>
+    </div>
+    <div class="music-info">
+      <div class="music-title">Special Birthday Melody</div>
+      <div class="music-status" id="musicStatus">Tap to play</div>
+      <div class="music-waves" id="musicWaves">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+    <button class="music-toggle-btn" id="musicToggleBtn" aria-label="Toggle Musik">
+      <svg class="play-icon" id="playIcon" viewBox="0 0 24 24" fill="currentColor">
+        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+      </svg>
+      <svg class="pause-icon hidden" id="pauseIcon" viewBox="0 0 24 24" fill="currentColor">
+        <rect x="6" y="4" width="4" height="16"></rect>
+        <rect x="14" y="4" width="4" height="16"></rect>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Top Floating Controls -->
+  <div class="top-nav-actions">
+    <button class="quick-action-btn" id="btnConfettiBoom" title="Ledakkan Konfeti!">
+      🎉 <span class="action-text">Konfeti</span>
+    </button>
+    <button class="quick-action-btn" id="btnScrollCake" title="Kue Ulang Tahun">
+      🎂 <span class="action-text">Tiup Lilin</span>
+    </button>
+  </div>
+
+  <!-- Main Container -->
+  <div class="site-wrapper">
+    
+    <!-- Hero Section -->
+    <header class="hero-section" id="hero">
+      <div class="hero-badge">
+        <span class="sparkle">✦</span> Happy Birthday to an Extraordinary Girl <span class="sparkle">✦</span>
+      </div>
+      <h1 class="hero-title">
+        Selamat Ulang Tahun,<br>
+        <span class="text-gradient">Salma Aulia</span> ✨
+      </h1>
+      <p class="hero-subtitle">
+        Di hari yang indah ini, semoga senyummu merekah lebih cerah, langkahmu dipenuhi bahagia, dan semua impian yang kamu bisikkan dalam doa segera menjadi nyata.
+      </p>
+
+      <div class="hero-quick-stats">
+        <div class="stat-card glass-card">
+          <span class="stat-number">365+</span>
+          <span class="stat-label">Hari Penuh Cerita</span>
+        </div>
+        <div class="stat-card glass-card">
+          <span class="stat-number">∞</span>
+          <span class="stat-label">Harapan Terbaik</span>
+        </div>
+        <div class="stat-card glass-card">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Tulus dari Hati</span>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="#cakeSection" class="btn-primary">
+          <span>🎂 Tiup Lilin Ulang Tahun</span>
+        </a>
+        <a href="#gallerySection" class="btn-secondary">
+          <span>📸 Lihat Galeri Kenangan</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Interactive Cake & Candle Blowing Section -->
+    <section class="section-container" id="cakeSection">
+      <div class="section-header text-center">
+        <span class="section-tag">Make A Wish</span>
+        <h2 class="section-title">Kue Ulang Tahun & Harapan</h2>
+        <p class="section-subtitle">Pejamkan mata sejenak, ucapkan harapan terbaikmu, lalu klik tombol atau ketuk api lilin untuk meniupnya!</p>
+      </div>
+
+      <div class="cake-stage glass-card">
+        <!-- Wish Status Box -->
+        <div class="wish-status-banner" id="wishBanner">
+          <span id="wishIcon">🕯️</span>
+          <span id="wishMessage">Lilin masih menyala. Siapkan keinginanmu dan tiup!</span>
+        </div>
+
+        <!-- 3D Realistic Birthday Cake -->
+        <div class="cake-container" id="cakeContainer">
+          <!-- Sparkles around cake -->
+          <div class="cake-sparkles"></div>
+
+          <!-- Candle with Flame -->
+          <div class="candles-wrapper">
+            <div class="candle candle-1" data-candle="1">
+              <div class="flame" id="flame1">
+                <div class="flame-glow"></div>
+              </div>
+              <div class="smoke" id="smoke1"></div>
+              <div class="wick"></div>
+              <div class="wax"></div>
+            </div>
+            <div class="candle candle-main" data-candle="2">
+              <div class="flame" id="flame2">
+                <div class="flame-glow"></div>
+              </div>
+              <div class="smoke" id="smoke2"></div>
+              <div class="wick"></div>
+              <div class="wax"></div>
+            </div>
+            <div class="candle candle-3" data-candle="3">
+              <div class="flame" id="flame3">
+                <div class="flame-glow"></div>
+              </div>
+              <div class="smoke" id="smoke3"></div>
+              <div class="wick"></div>
+              <div class="wax"></div>
+            </div>
+          </div>
+
+          <!-- Cake Tiers -->
+          <div class="cake-tier tier-top">
+            <div class="tier-frosting">
+              <span class="frosting-drop"></span>
+              <span class="frosting-drop"></span>
+              <span class="frosting-drop"></span>
+              <span class="frosting-drop"></span>
+              <span class="frosting-drop"></span>
+            </div>
+            <div class="cake-topping-berries">
+              🍓 🍒 🍓
+            </div>
+          </div>
+          <div class="cake-tier tier-middle">
+            <div class="tier-ribbon"></div>
+            <div class="tier-decorations">
+              <span>★</span><span>♥</span><span>★</span><span>♥</span><span>★</span>
+            </div>
+          </div>
+          <div class="cake-tier tier-bottom">
+            <div class="cake-text">FOR SALMA ✨</div>
+          </div>
+          <div class="cake-plate"></div>
+        </div>
+
+        <!-- Cake Controls -->
+        <div class="cake-controls">
+          <button class="btn-blow-candle" id="blowCandleBtn">
+            <span class="blow-icon">💨</span>
+            <span class="blow-label">Tiup Lilin Sekarang!</span>
+          </button>
+          <button class="btn-re-light hidden" id="relightCandleBtn">
+            <span class="blow-icon">✨</span>
+            <span>Nyalakan Lilin Lagi</span>
+          </button>
+        </div>
+
+        <!-- Hidden Wish Reveal Card -->
+        <div class="wish-reveal-box hidden" id="wishRevealBox">
+          <div class="reveal-badge">🎉 Wish Granted! 🎉</div>
+          <h3>"Semoga Salma senantiasa diberikan kesehatan, kebahagiaan tanpa henti, kemudahan dalam setiap urusan, dan dikelilingi oleh orang-orang yang tulus menyayangimu."</h3>
+          <p class="reveal-author">— Doa tulus selalu untukmu 🤍</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Special Envelope & Heartfelt Letter Section -->
+    <section class="section-container" id="letterSection">
+      <div class="section-header text-center">
+        <span class="section-tag">A Letter For You</span>
+        <h2 class="section-title">Surat Spesial di Hari Ulang Tahunmu</h2>
+        <p class="section-subtitle">Ada pesan tulus yang sengaja ditulis khusus untuk kamu baca hari ini.</p>
+      </div>
+
+      <div class="envelope-area">
+        <!-- Interactive Envelope Wrapper -->
+        <div class="envelope-wrapper" id="envelopeWrapper">
+          <div class="envelope" id="envelope">
+            <div class="envelope-back"></div>
+            <div class="letter-preview" id="letterPaper">
+              <div class="letter-header">
+                <span class="letter-tag">Dear Salma Aulia,</span>
+                <span class="letter-date">Hari Spesialmu</span>
+              </div>
+              <div class="letter-body">
+                <p><strong>Hai Salma,</strong></p>
+                <p>Selamat bertambah usia! Terima kasih sudah lahir ke dunia dan tumbuh menjadi sosok yang begitu luar biasa.</p>
+                <p>Senyummu punya cara magis untuk menenangkan hari yang berat, dan keberadaanmu selalu menghadirkan rasa hangat bagi orang-orang di sekitarmu.</p>
+                <p>Di usiamu yang baru ini, jangan pernah ragu akan potensi hebatmu. Kamu berharga, kamu pantas bahagia, dan kamu layak mendapatkan segala hal baik di semesta ini.</p>
+                <p>Apapun impian yang sedang kamu kejar, melangkahlah dengan percaya diri. Semoga keberuntungan dan kemudahan senantiasa membersamaimu.</p>
+                <div class="letter-sign">
+                  <span>Dengan segenap doa terbaik,</span>
+                  <strong>Hamdi 🤍</strong>
+                </div>
+              </div>
+            </div>
+            <div class="envelope-front"></div>
+            <div class="envelope-flap" id="envelopeFlap"></div>
+            <div class="wax-seal" id="waxSeal">
+              <span class="seal-icon">🎂</span>
+              <span class="seal-tooltip">Klik untuk buka surat</span>
+            </div>
+          </div>
+        </div>
+        <div class="envelope-instruction">
+          <button class="btn-toggle-letter" id="btnToggleLetter">
+            ✉️ <span id="toggleLetterText">Klik untuk Membuka Surat</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Photo Memory Gallery Section -->
+    <section class="section-container" id="gallerySection">
+      <div class="section-header text-center">
+        <span class="section-tag">Moments & Memories</span>
+        <h2 class="section-title">Galeri Senyum & Cerita</h2>
+        <p class="section-subtitle">Potret-potret manis perjalanan waktu. Klik foto mana saja untuk melihat tampilan lebih dekat.</p>
+      </div>
+
+      <!-- Photo Upload Helper (Local Dynamic Addition) -->
+      <div class="gallery-toolbar glass-card">
+        <div class="toolbar-info">
+          <span>📸 Menampilkan foto-foto Salma yang manis</span>
+        </div>
+        <div class="toolbar-actions">
+          <label for="photoUploadInput" class="btn-custom-upload" title="Tambah foto baru dari laptop/komputer">
+            ➕ Tambah Foto dari Komputer
+          </label>
+          <input type="file" id="photoUploadInput" accept="image/*" multiple class="hidden-input">
+        </div>
+      </div>
+
+      <!-- Polaroids Grid -->
+      <div class="polaroid-grid" id="polaroidGrid">
+        <!-- Item 1 -->
+        <div class="polaroid-card" data-index="0" data-tilt>
+          <div class="tape-corner"></div>
+          <div class="polaroid-img-box">
+            <img src="assets/foto-01.webp" alt="Salma Aulia - Momen 1" loading="lazy" onerror="this.src='assets/photos/WhatsApp Image 2026-08-09 at 19.35.31.jpeg'">
+          </div>
+          <div class="polaroid-caption">
+            <p class="caption-title">Senyum yang Menghangatkan</p>
+            <p class="caption-date">Always shining bright ✨</p>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="polaroid-card" data-index="1" data-tilt>
+          <div class="pin-badge">📌</div>
+          <div class="polaroid-img-box">
+            <img src="assets/foto-02.webp" alt="Salma Aulia - Momen 2" loading="lazy" onerror="this.src='assets/photos/WhatsApp Image 2026-08-09 at 19.35.32.jpeg'">
+          </div>
+          <div class="polaroid-caption">
+            <p class="caption-title">Anggun & Autentik</p>
+            <p class="caption-date">Cantik dengan caramu sendiri 🌸</p>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="polaroid-card" data-index="2" data-tilt>
+          <div class="tape-corner"></div>
+          <div class="polaroid-img-box">
+            <img src="assets/foto-03.webp" alt="Salma Aulia - Momen 3" loading="lazy" onerror="this.src='assets/photos/WhatsApp Image 2026-08-09 at 19.35.33.jpeg'">
+          </div>
+          <div class="polaroid-caption">
+            <p class="caption-title">Ketenangan & Keteduhan</p>
+            <p class="caption-date">Selalu jadi tempat yang nyaman 💫</p>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="polaroid-card highlight-card" data-index="3" data-tilt>
+          <div class="tape-corner right"></div>
+          <div class="polaroid-img-box">
+            <img src="assets/foto-04.webp" alt="Salma & Hamdi" loading="lazy" onerror="this.src='assets/photos/WhatsApp Image 2026-08-09 at 19.35.33 (1).jpeg'">
+          </div>
+          <div class="polaroid-caption">
+            <p class="caption-title">Bersama Dalam Satu Cerita</p>
+            <p class="caption-date">Momen yang selalu berharga 🤍</p>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="polaroid-card" data-index="4" data-tilt>
+          <div class="pin-badge">📌</div>
+          <div class="polaroid-img-box">
+            <img src="assets/foto-05.webp" alt="Salma Aulia - Momen 5" loading="lazy" onerror="this.src='assets/photos/WhatsApp Image 2026-08-09 at 19.35.34.jpeg'">
+          </div>
+          <div class="polaroid-caption">
+            <p class="caption-title">Cerita Kecil yang Berarti</p>
+            <p class="caption-date">Setiap tawa punya warnanya 🌷</p>
+          </div>
+        </div>
+
+        <!-- Item 6 -->
+        <div class="polaroid-card" data-index="5" data-tilt>
+          <div class="tape-corner"></div>
+          <div class="polaroid-img-box">
+            <img src="assets/foto-06.webp" alt="Salma Aulia - Momen 6" loading="lazy" onerror="this.src='assets/photos/WhatsApp Image 2026-08-09 at 19.35.35.jpeg'">
+          </div>
+          <div class="polaroid-caption">
+            <p class="caption-title">Tetap Menjadi Salma</p>
+            <p class="caption-date">Sosok yang selalu dikagumi 🌿</p>
+          </div>
+        </div>
+
+        <!-- Item 7 -->
+        <div class="polaroid-card" data-index="6" data-tilt>
+          <div class="tape-corner right"></div>
+          <div class="polaroid-img-box">
+            <img src="assets/foto-07.webp" alt="Salma Aulia - Momen 7" loading="lazy" onerror="this.src='assets/photos/WhatsApp Image 2026-08-09 at 19.35.36.jpeg'">
+          </div>
+          <div class="polaroid-caption">
+            <p class="caption-title">Menuju Masa Depan Indah</p>
+            <p class="caption-date">Babak baru yang penuh berkah 🌟</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Lightbox Modal -->
+    <div class="lightbox-modal" id="lightboxModal">
+      <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+      <div class="lightbox-content">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Tutup">&times;</button>
+        <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Sebelumnya">&#10094;</button>
+        <button class="lightbox-nav next" id="lightboxNext" aria-label="Berikutnya">&#10095;</button>
+        <div class="lightbox-image-wrap">
+          <img src="" alt="Salma Aulia" id="lightboxImg">
+        </div>
+        <div class="lightbox-details">
+          <h3 id="lightboxTitle">Judul Foto</h3>
+          <p id="lightboxCaption">Keterangan foto</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 Special Reasons Why Salma is Wonderful (Interactive Accordion/Cards) -->
+    <section class="section-container" id="reasonsSection">
+      <div class="section-header text-center">
+        <span class="section-tag">Special Things</span>
+        <h2 class="section-title">7 Hal yang Bikin Salma Istimewa</h2>
+        <p class="section-subtitle">Setiap sisi dari dirimu selalu punya cara untuk membuat orang lain bersyukur mengenalmu.</p>
+      </div>
+
+      <div class="reasons-grid">
+        <div class="reason-card glass-card">
+          <div class="reason-number">01</div>
+          <div class="reason-icon">🌸</div>
+          <h3>Ketulusan Hati</h3>
+          <p>Caramu memperlakukan orang lain dengan ramah dan penuh perhatian tanpa pamrih adalah hal yang begitu langka.</p>
+        </div>
+
+        <div class="reason-card glass-card">
+          <div class="reason-number">02</div>
+          <div class="reason-icon">✨</div>
+          <h3>Pancaran Energi Positif</h3>
+          <p>Saat kamu tersenyum atau bercerita antusias, suasana di sekitar langsung terasa jauh lebih ceria dan menyenangkan.</p>
+        </div>
+
+        <div class="reason-card glass-card">
+          <div class="reason-number">03</div>
+          <div class="reason-icon">☕</div>
+          <h3>Tempat Berbagi Nyaman</h3>
+          <p>Bisa mengobrol denganmu tentang apa saja terasa begitu mengalir dan selalu bikin hati terasa tenang.</p>
+        </div>
+
+        <div class="reason-card glass-card">
+          <div class="reason-number">04</div>
+          <div class="reason-icon">💪</div>
+          <h3>Kekuatan & Ketabahan</h3>
+          <p>Meski ada hari-hari yang melelahkan, kamu selalu mampu bangkit dan menghadapinya dengan anggun.</p>
+        </div>
+
+        <div class="reason-card glass-card">
+          <div class="reason-number">05</div>
+          <div class="reason-icon">🎨</div>
+          <h3>Selera & Karakter Unik</h3>
+          <p>Pilihan gayamu, pandanganmu tentang hal-hal kecil, dan caramu melihat dunia membuatmu begitu memikat.</p>
+        </div>
+
+        <div class="reason-card glass-card">
+          <div class="reason-number">06</div>
+          <div class="reason-icon">🤍</div>
+          <h3>Selalu Jadi Diri Sendiri</h3>
+          <p>Kamu tidak perlu berpura-pura menjadi siapapun, karena Salma apa adanya adalah yang paling sempurna.</p>
+        </div>
+
+        <div class="reason-card glass-card span-all">
+          <div class="reason-number">07</div>
+          <div class="reason-icon">🌟</div>
+          <h3>Kehadiranmu Adalah Hadiah</h3>
+          <p>Dunia menjadi tempat yang jauh lebih indah dan berarti hanya karena kamu ada di dalamnya.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Birthday Wishes Board (Papan Harapan) -->
+    <section class="section-container" id="wishesSection">
+      <div class="section-header text-center">
+        <span class="section-tag">Wishes & Prayers</span>
+        <h2 class="section-title">Papan Harapan & Doa</h2>
+        <p class="section-subtitle">Tuliskan doa atau pesan manis untuk Salma. Pesan akan tersimpan langsung di papan ini!</p>
+      </div>
+
+      <div class="wishes-layout">
+        <!-- Wish Input Form -->
+        <div class="wish-form-card glass-card">
+          <h3>💌 Kirimkan Doa untuk Salma</h3>
+          <form id="wishForm">
+            <div class="form-group">
+              <label for="senderName">Nama Pengirim:</label>
+              <input type="text" id="senderName" placeholder="Contoh: Hamdi / Sahabatmu" required maxlength="40">
+            </div>
+            <div class="form-group">
+              <label for="wishMessageInput">Pesan & Doa Terbaikmu:</label>
+              <textarea id="wishMessageInput" rows="4" placeholder="Tuliskan ucapan dan harapan terbaikmu untuk Salma Aulia..." required maxlength="300"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Pilih Emotikon Doa:</label>
+              <div class="emoji-selector" id="emojiSelector">
+                <label><input type="radio" name="wishEmoji" value="🎂" checked> <span>🎂</span></label>
+                <label><input type="radio" name="wishEmoji" value="✨"> <span>✨</span></label>
+                <label><input type="radio" name="wishEmoji" value="🤍"> <span>🤍</span></label>
+                <label><input type="radio" name="wishEmoji" value="🌸"> <span>🌸</span></label>
+                <label><input type="radio" name="wishEmoji" value="🎁"> <span>🎁</span></label>
+                <label><input type="radio" name="wishEmoji" value="🎉"> <span>🎉</span></label>
+              </div>
+            </div>
+            <button type="submit" class="btn-primary w-100">
+              <span>🚀 Sematkan di Papan Harapan</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Wishes List Container -->
+        <div class="wishes-wall-container" id="wishesWallContainer">
+          <div class="wishes-wall-header">
+            <h4>Pesan yang Telah Masuk (<span id="wishesCount">0</span>)</h4>
+            <span class="wishes-wall-tag">✨ Penuh Kasih & Doa</span>
+          </div>
+          <div class="wishes-list" id="wishesList">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Love & Appreciation Meter -->
+    <section class="section-container" id="loveSection">
+      <div class="love-meter-card glass-card text-center">
+        <span class="section-tag">Birthday Love Meter</span>
+        <h2>Kirim Energi Doa & Cinta</h2>
+        <p>Setiap klik mengirimkan doa tulus dan bunga cinta untuk hari bahagia Salma!</p>
+
+        <div class="love-btn-wrapper">
+          <button class="big-heart-btn" id="bigHeartBtn" aria-label="Kirim Cinta">
+            <span class="heart-icon">💖</span>
+          </button>
+        </div>
+
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="loveProgressFill"></div>
+        </div>
+        <div class="progress-stats">
+          <span id="lovePercentage">0%</span> • <span id="loveStatusText">Ketuk tombol hati untuk mengisi kebahagiaan!</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer text-center">
+      <div class="footer-cake">🎂 ✨ 🤍 ✨ 🎂</div>
+      <h2>Once Again, Happy Birthday Salma Aulia!</h2>
+      <p>Dibuat dengan segenap rasa dan doa terbaik.</p>
+      <div class="footer-actions">
+        <button class="btn-secondary" id="btnScrollTop">
+          ↑ Kembali ke Atas
+        </button>
+      </div>
+      <p class="copyright">© Special Birthday Celebration for Salma Aulia • Powered with Love</p>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
