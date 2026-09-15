@@ -3,530 +3,624 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#120c18">
-  <meta name="description" content="Selamat Ulang Tahun Salma Aulia! Ruang istimewa penuh kenangan, harapan, dan doa terbaik.">
-  <title>Happy Birthday Salma Aulia ✨🎂</title>
-  
-  <!-- Google Fonts -->
+  <meta name="theme-color" content="#070b10">
+  <meta name="description" content="The Shape of My Heart — Sebuah persembahan ulang tahun puitis dan sinematik untuk Salma Aulia.">
+  <title>The Shape of My Heart — Happy Birthday Salma Aulia ✨♠️♥️♦️♣️</title>
+
+  <!-- Google Fonts: Cinzel, Cormorant Garamond, Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
-  
+
   <!-- Confetti library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-  <!-- Ambient Canvas Background (Starfield / Floating Bokeh) -->
+  <!-- Ambient Golden Stardust & Floating Suits Canvas -->
   <canvas id="ambientCanvas"></canvas>
 
-  <!-- Welcome / Entrance Curtain Overlay -->
+  <!-- Audio Element: Shape of My Heart by Sting -->
+  <audio id="bgMusic" src="assets/shape-of-my-heart.mp3" preload="auto" loop></audio>
+
+  <!-- Cinematic Entrance Curtain -->
   <div class="curtain-overlay" id="curtainOverlay">
-    <div class="curtain-content glass-card">
-      <div class="curtain-badge">✨ Special Birthday Edition ✨</div>
-      <div class="curtain-avatar-wrap">
-        <img src="assets/foto-01.webp" alt="Salma Aulia" class="curtain-avatar" onerror="this.src='assets/photos/foto-01.webp'">
-        <div class="avatar-ring"></div>
+    <div class="curtain-card gold-frame">
+      <div class="card-filigree top-left"></div>
+      <div class="card-filigree top-right"></div>
+      <div class="card-filigree btm-left"></div>
+      <div class="card-filigree btm-right"></div>
+
+      <div class="curtain-suit-row">
+        <span>♠</span><span>♣</span><span class="gold-suit">♥</span><span>♦</span>
       </div>
-      <h1 class="curtain-title">A Special Day for<br><span class="highlight-name">Salma Aulia</span></h1>
-      <p class="curtain-sub">Sebuah kado digital penuh kenangan, doa, dan kejutan istimewa untuk hari spesialmu.</p>
-      
-      <button class="btn-primary pulse-btn" id="enterSiteBtn">
-        <span class="btn-icon">🎁</span> Buka Hadiah Spesial
+
+      <div class="curtain-portrait-frame">
+        <div class="portrait-halo"></div>
+        <img src="assets/foto-01.webp" alt="Salma Aulia" class="curtain-portrait" onerror="this.src='assets/photos/foto-01.webp'">
+        <div class="crown-badge">👑 Queen of Hearts</div>
+      </div>
+
+      <p class="curtain-pretitle">A Special Birthday Dedication</p>
+      <h1 class="curtain-title">The Shape of My Heart</h1>
+      <p class="curtain-for">Untu Salma Aulia</p>
+      <p class="curtain-quote">“I know that the spades are the swords of a soldier... but that’s not the shape of my heart.”</p>
+
+      <button class="btn-royal-gold" id="enterSiteBtn">
+        <span class="btn-icon">🎵</span> Buka Kisah & Putar Lagu
       </button>
-      <p class="curtain-hint">🎧 Nyalakan volume untuk pengalaman terbaik</p>
+
+      <p class="curtain-hint">Gunakan earphone / nyalakan audio untuk pengalaman sinematik terbaik</p>
     </div>
   </div>
 
-  <!-- Audio Element -->
-  <audio id="bgMusic" src="assets/our-song.mp3" preload="auto" loop></audio>
-
-  <!-- Floating Floating Floating Music Widget -->
-  <div class="music-floating-widget" id="musicWidget">
-    <div class="vinyl-record" id="vinylDisc">
-      <img src="assets/foto-02.webp" alt="Cover" class="vinyl-art" onerror="this.src='assets/photos/foto-02.webp'">
-      <div class="vinyl-center"></div>
+  <!-- Floating Minimalist Gold Music Player -->
+  <div class="floating-music-bar" id="musicBar">
+    <div class="vinyl-gold" id="vinylGold">
+      <div class="vinyl-groove"></div>
+      <img src="assets/foto-02.webp" alt="Cover" class="vinyl-thumb" onerror="this.src='assets/photos/foto-02.webp'">
+      <div class="vinyl-pin"></div>
     </div>
-    <div class="music-info">
-      <div class="music-title">Special Birthday Melody</div>
-      <div class="music-status" id="musicStatus">Tap to play</div>
-      <div class="music-waves" id="musicWaves">
-        <span></span><span></span><span></span><span></span><span></span>
-      </div>
+    <div class="music-meta">
+      <div class="track-title">Shape of My Heart</div>
+      <div class="track-artist">Sting • Special Birthday Melody</div>
+      <div class="lyric-line-preview" id="currentLyricText">“He deals the cards as a meditation...”</div>
     </div>
-    <button class="music-toggle-btn" id="musicToggleBtn" aria-label="Toggle Musik">
-      <svg class="play-icon" id="playIcon" viewBox="0 0 24 24" fill="currentColor">
-        <polygon points="5 3 19 12 5 21 5 3"></polygon>
-      </svg>
-      <svg class="pause-icon hidden" id="pauseIcon" viewBox="0 0 24 24" fill="currentColor">
-        <rect x="6" y="4" width="4" height="16"></rect>
-        <rect x="14" y="4" width="4" height="16"></rect>
-      </svg>
+    <button class="btn-music-action" id="musicToggleBtn" aria-label="Toggle Musik">
+      <span id="musicBtnIcon">▶</span>
     </button>
   </div>
 
-  <!-- Top Floating Controls -->
-  <div class="top-nav-actions">
-    <button class="quick-action-btn" id="btnConfettiBoom" title="Ledakkan Konfeti!">
-      🎉 <span class="action-text">Konfeti</span>
+  <!-- Floating Quick Actions -->
+  <div class="floating-actions">
+    <button class="btn-action-pill" id="btnQuickConfetti" title="Hamburkan Emas & Bintang">
+      ✨ <span>Keberuntungan</span>
     </button>
-    <button class="quick-action-btn" id="btnScrollCake" title="Kue Ulang Tahun">
-      🎂 <span class="action-text">Tiup Lilin</span>
+    <button class="btn-action-pill" id="btnQuickLantern" title="Lentera Lilin Emas">
+      🕯️ <span>Tiup Lilin</span>
     </button>
   </div>
 
-  <!-- Main Container -->
-  <div class="site-wrapper">
-    
+  <!-- Page Wrapper -->
+  <div class="page-container">
+
     <!-- Hero Section -->
-    <header class="hero-section" id="hero">
-      <div class="hero-badge">
-        <span class="sparkle">✦</span> Happy Birthday to an Extraordinary Girl <span class="sparkle">✦</span>
+    <header class="hero-section">
+      <div class="hero-insignia">
+        <span class="suit-emblem">♠</span>
+        <span class="suit-emblem active-heart">♥</span>
+        <span class="suit-emblem">♦</span>
+        <span class="suit-emblem">♣</span>
       </div>
-      <h1 class="hero-title">
+
+      <p class="hero-kicker">THE DECK OF DESTINY & MEMORIES</p>
+      
+      <h1 class="hero-headline">
         Selamat Ulang Tahun,<br>
-        <span class="text-gradient">Salma Aulia</span> ✨
+        <span class="gold-gradient-text">Salma Aulia</span>
       </h1>
-      <p class="hero-subtitle">
-        Di hari yang indah ini, semoga senyummu merekah lebih cerah, langkahmu dipenuhi bahagia, dan semua impian yang kamu bisikkan dalam doa segera menjadi nyata.
+
+      <p class="hero-prose">
+        Di antara miliaran kemungkinan dan perputaran waktu di semesta ini, menemukan seseorang seistimewa kamu adalah kartu terbaik yang pernah dibagikan takdir. Hari ini, rayakanlah setiap langkah, tawa, dan kilau indahmu.
       </p>
 
-      <div class="hero-quick-stats">
-        <div class="stat-card glass-card">
-          <span class="stat-number">365+</span>
-          <span class="stat-label">Hari Penuh Cerita</span>
-        </div>
-        <div class="stat-card glass-card">
-          <span class="stat-number">∞</span>
-          <span class="stat-label">Harapan Terbaik</span>
-        </div>
-        <div class="stat-card glass-card">
-          <span class="stat-number">100%</span>
-          <span class="stat-label">Tulus dari Hati</span>
-        </div>
+      <!-- Live Synced Lyrics Card -->
+      <div class="cinema-quote-box gold-frame">
+        <div class="quote-symbol">❝</div>
+        <p class="quote-text" id="syncedLyricDisplay">
+          “I know that the spades are the swords of a soldier...<br>
+          I know that the clubs are weapons of war...<br>
+          I know that diamonds mean money for this art...<br>
+          <strong>But that’s not the shape of my heart.</strong>”
+        </p>
+        <div class="quote-caption">— Sting, <em>Shape of My Heart</em></div>
       </div>
 
-      <div class="hero-actions">
-        <a href="#cakeSection" class="btn-primary">
-          <span>🎂 Tiup Lilin Ulang Tahun</span>
+      <div class="hero-nav-buttons">
+        <a href="#deckSection" class="btn-royal-gold">
+          <span>🃏 Buka Deck Kartu Kenangan</span>
         </a>
-        <a href="#gallerySection" class="btn-secondary">
-          <span>📸 Lihat Galeri Kenangan</span>
+        <a href="#lanternSection" class="btn-royal-outline">
+          <span>🕯️ Buat Harapan & Tiup Lilin</span>
         </a>
       </div>
     </header>
 
-    <!-- Interactive Cake & Candle Blowing Section -->
-    <section class="section-container" id="cakeSection">
-      <div class="section-header text-center">
-        <span class="section-tag">Make A Wish</span>
-        <h2 class="section-title">Kue Ulang Tahun & Harapan</h2>
-        <p class="section-subtitle">Pejamkan mata sejenak, ucapkan harapan terbaikmu, lalu klik tombol atau ketuk api lilin untuk meniupnya!</p>
+    <!-- The 4 Suits of Salma (Filosofi 4 Simbol Kehidupan) -->
+    <section class="section-block" id="philosophySection">
+      <div class="section-title-wrap text-center">
+        <span class="section-sub-gold">THE FOUR SUITS OF YOU</span>
+        <h2 class="section-heading">Empat Simbol yang Membentukmu</h2>
+        <p class="section-desc">Lagu ini berkisah tentang kartu-kartu kehidupan. Inilah makna di balik setiap simbol tentang sosokmu.</p>
       </div>
 
-      <div class="cake-stage glass-card">
-        <!-- Wish Status Box -->
-        <div class="wish-status-banner" id="wishBanner">
-          <span id="wishIcon">🕯️</span>
-          <span id="wishMessage">Lilin masih menyala. Siapkan keinginanmu dan tiup!</span>
+      <div class="suits-grid">
+        <!-- ♠ Spades -->
+        <div class="suit-card gold-frame">
+          <div class="suit-corner top-l">♠</div>
+          <div class="suit-icon-large">♠</div>
+          <h3>The Spades</h3>
+          <span class="suit-title-id">Ketegaran & Ketegasan</span>
+          <p class="suit-lyric">“The swords of a soldier...”</p>
+          <p class="suit-explanation">
+            Tentang caramu melangkah dengan tegap di saat lelah. Ketegaranmu saat menghadapi hal sulit membuktikan bahwa di balik kelembutanmu, tersimpan jiwa yang tangguh dan tak mudah menyerah.
+          </p>
+          <div class="suit-corner btm-r">♠</div>
         </div>
 
-        <!-- 3D Realistic Birthday Cake -->
-        <div class="cake-container" id="cakeContainer">
-          <!-- Sparkles around cake -->
-          <div class="cake-sparkles"></div>
-
-          <!-- Candle with Flame -->
-          <div class="candles-wrapper">
-            <div class="candle candle-1" data-candle="1">
-              <div class="flame" id="flame1">
-                <div class="flame-glow"></div>
-              </div>
-              <div class="smoke" id="smoke1"></div>
-              <div class="wick"></div>
-              <div class="wax"></div>
-            </div>
-            <div class="candle candle-main" data-candle="2">
-              <div class="flame" id="flame2">
-                <div class="flame-glow"></div>
-              </div>
-              <div class="smoke" id="smoke2"></div>
-              <div class="wick"></div>
-              <div class="wax"></div>
-            </div>
-            <div class="candle candle-3" data-candle="3">
-              <div class="flame" id="flame3">
-                <div class="flame-glow"></div>
-              </div>
-              <div class="smoke" id="smoke3"></div>
-              <div class="wick"></div>
-              <div class="wax"></div>
-            </div>
-          </div>
-
-          <!-- Cake Tiers -->
-          <div class="cake-tier tier-top">
-            <div class="tier-frosting">
-              <span class="frosting-drop"></span>
-              <span class="frosting-drop"></span>
-              <span class="frosting-drop"></span>
-              <span class="frosting-drop"></span>
-              <span class="frosting-drop"></span>
-            </div>
-            <div class="cake-topping-berries">
-              🍓 🍒 🍓
-            </div>
-          </div>
-          <div class="cake-tier tier-middle">
-            <div class="tier-ribbon"></div>
-            <div class="tier-decorations">
-              <span>★</span><span>♥</span><span>★</span><span>♥</span><span>★</span>
-            </div>
-          </div>
-          <div class="cake-tier tier-bottom">
-            <div class="cake-text">FOR SALMA ✨</div>
-          </div>
-          <div class="cake-plate"></div>
+        <!-- ♣ Clubs -->
+        <div class="suit-card gold-frame">
+          <div class="suit-corner top-l">♣</div>
+          <div class="suit-icon-large">♣</div>
+          <h3>The Clubs</h3>
+          <span class="suit-title-id">Tawa & Kehangatan</span>
+          <p class="suit-lyric">“Weapons of charm & laughter...”</p>
+          <p class="suit-explanation">
+            Tawamu punya kekuatan magis untuk meruntuhkan kekakuan. Saat kamu tersenyum lepas, obrolan biasa berubah menjadi ruang paling hangat dan menyenangkan untuk disinggahi.
+          </p>
+          <div class="suit-corner btm-r">♣</div>
         </div>
 
-        <!-- Cake Controls -->
-        <div class="cake-controls">
-          <button class="btn-blow-candle" id="blowCandleBtn">
-            <span class="blow-icon">💨</span>
-            <span class="blow-label">Tiup Lilin Sekarang!</span>
-          </button>
-          <button class="btn-re-light hidden" id="relightCandleBtn">
-            <span class="blow-icon">✨</span>
-            <span>Nyalakan Lilin Lagi</span>
-          </button>
+        <!-- ♦ Diamonds -->
+        <div class="suit-card gold-frame">
+          <div class="suit-corner top-l">♦</div>
+          <div class="suit-icon-large">♦</div>
+          <h3>The Diamonds</h3>
+          <span class="suit-title-id">Kilau & Keanggunan</span>
+          <p class="suit-lyric">“Diamonds mean money for this art...”</p>
+          <p class="suit-explanation">
+            Bukan tentang kemewahan duniawi, melainkan kilau kecantikan batin, selera unik, dan kecerdasan caramu memandang dunia. Kamu bersinar alami tanpa perlu berusaha memikat siapapun.
+          </p>
+          <div class="suit-corner btm-r">♦</div>
         </div>
 
-        <!-- Hidden Wish Reveal Card -->
-        <div class="wish-reveal-box hidden" id="wishRevealBox">
-          <div class="reveal-badge">🎉 Wish Granted! 🎉</div>
-          <h3>"Semoga Salma senantiasa diberikan kesehatan, kebahagiaan tanpa henti, kemudahan dalam setiap urusan, dan dikelilingi oleh orang-orang yang tulus menyayangimu."</h3>
-          <p class="reveal-author">— Doa tulus selalu untukmu 🤍</p>
+        <!-- ♥ Hearts -->
+        <div class="suit-card gold-frame highlight-suit">
+          <div class="suit-corner top-l">♥</div>
+          <div class="suit-icon-large crimson-glow">♥</div>
+          <h3>The Hearts</h3>
+          <span class="suit-title-id">Bentuk Hati Sejati</span>
+          <p class="suit-lyric">“That’s the shape of my heart...”</p>
+          <p class="suit-explanation">
+            Di antara semua ambisi dan simbol yang dicari orang, bagi aku, bentuk hati yang paling tulus dan berharga adalah kehadiranmu, Salma. Doa dan rasa sayang terbaik selalu tertuju untukmu.
+          </p>
+          <div class="suit-corner btm-r">♥</div>
         </div>
       </div>
     </section>
 
-    <!-- Special Envelope & Heartfelt Letter Section -->
-    <section class="section-container" id="letterSection">
-      <div class="section-header text-center">
-        <span class="section-tag">A Letter For You</span>
-        <h2 class="section-title">Surat Spesial di Hari Ulang Tahunmu</h2>
-        <p class="section-subtitle">Ada pesan tulus yang sengaja ditulis khusus untuk kamu baca hari ini.</p>
+    <!-- The 3D Deck of Destiny (Interactive Memory Cards) -->
+    <section class="section-block" id="deckSection">
+      <div class="section-title-wrap text-center">
+        <span class="section-sub-gold">THE QUEEN OF HEARTS COLLECTION</span>
+        <h2 class="section-heading">Deck Kartu Kenangan 3D</h2>
+        <p class="section-desc">Kocok, pilih, dan buka kartu kenangan di bawah ini. Setiap kartu menyimpan potongan cerita dan potret istimewa Salma.</p>
       </div>
 
-      <div class="envelope-area">
-        <!-- Interactive Envelope Wrapper -->
-        <div class="envelope-wrapper" id="envelopeWrapper">
-          <div class="envelope" id="envelope">
-            <div class="envelope-back"></div>
-            <div class="letter-preview" id="letterPaper">
-              <div class="letter-header">
-                <span class="letter-tag">Dear Salma Aulia,</span>
-                <span class="letter-date">Hari Spesialmu</span>
-              </div>
-              <div class="letter-body">
-                <p><strong>Hai Salma,</strong></p>
-                <p>Selamat bertambah usia! Terima kasih sudah lahir ke dunia dan tumbuh menjadi sosok yang begitu luar biasa.</p>
-                <p>Senyummu punya cara magis untuk menenangkan hari yang berat, dan keberadaanmu selalu menghadirkan rasa hangat bagi orang-orang di sekitarmu.</p>
-                <p>Di usiamu yang baru ini, jangan pernah ragu akan potensi hebatmu. Kamu berharga, kamu pantas bahagia, dan kamu layak mendapatkan segala hal baik di semesta ini.</p>
-                <p>Apapun impian yang sedang kamu kejar, melangkahlah dengan percaya diri. Semoga keberuntungan dan kemudahan senantiasa membersamaimu.</p>
-                <div class="letter-sign">
-                  <span>Dengan segenap doa terbaik,</span>
-                  <strong>Hamdi 🤍</strong>
+      <!-- Deck Controller Bar -->
+      <div class="deck-controls gold-frame">
+        <div class="deck-btn-group">
+          <button class="btn-control" id="btnFanCards">
+            🎴 <span>Mekarkan Kartu (Fan Out)</span>
+          </button>
+          <button class="btn-control" id="btnFlipAll">
+            🔄 <span>Balik Semua Kartu</span>
+          </button>
+          <button class="btn-control" id="btnDrawRandom">
+            ✨ <span>Tarik Kartu Acak</span>
+          </button>
+        </div>
+
+        <div class="deck-upload-helper">
+          <label for="deckUploadInput" class="btn-upload-deck" title="Unggah foto baru dari komputer Anda">
+            ➕ Tambah Kartu Foto Baru
+          </label>
+          <input type="file" id="deckUploadInput" accept="image/*" multiple class="hidden-input">
+        </div>
+      </div>
+
+      <!-- 3D Card Stage -->
+      <div class="cards-stage" id="cardsStage">
+        <!-- Card 1 -->
+        <div class="tarot-card-wrapper" data-index="0">
+          <div class="tarot-card">
+            <!-- Front Face (Gold Filigree Back of Card) -->
+            <div class="card-face card-back-side">
+              <div class="filigree-border">
+                <div class="center-seal">
+                  <span class="seal-suit">♥</span>
+                  <span class="seal-title">QUEEN OF HEARTS</span>
+                  <span class="seal-tag">SALMA AULIA</span>
                 </div>
               </div>
             </div>
-            <div class="envelope-front"></div>
-            <div class="envelope-flap" id="envelopeFlap"></div>
-            <div class="wax-seal" id="waxSeal">
-              <span class="seal-icon">🎂</span>
-              <span class="seal-tooltip">Klik untuk buka surat</span>
+            <!-- Back Face (Revealed Photo & Meaning) -->
+            <div class="card-face card-front-side">
+              <div class="card-header-bar">
+                <span class="card-corner-val">A ♥</span>
+                <span class="card-name-val">First Light</span>
+                <span class="card-corner-val">♥ A</span>
+              </div>
+              <div class="card-photo-box">
+                <img src="assets/foto-01.webp" alt="Salma Aulia - Kartu 1" onerror="this.src='assets/photos/foto-01.webp'">
+              </div>
+              <div class="card-meta">
+                <h4>Senyum yang Mengubah Suasana</h4>
+                <p>Ketenangan yang hadir saat menatap senyumanmu.</p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="envelope-instruction">
-          <button class="btn-toggle-letter" id="btnToggleLetter">
-            ✉️ <span id="toggleLetterText">Klik untuk Membuka Surat</span>
-          </button>
+
+        <!-- Card 2 -->
+        <div class="tarot-card-wrapper" data-index="1">
+          <div class="tarot-card">
+            <div class="card-face card-back-side">
+              <div class="filigree-border">
+                <div class="center-seal">
+                  <span class="seal-suit">♦</span>
+                  <span class="seal-title">ACE OF DIAMONDS</span>
+                  <span class="seal-tag">SALMA AULIA</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-face card-front-side">
+              <div class="card-header-bar">
+                <span class="card-corner-val">K ♦</span>
+                <span class="card-name-val">Authentic Grace</span>
+                <span class="card-corner-val">♦ K</span>
+              </div>
+              <div class="card-photo-box">
+                <img src="assets/foto-02.webp" alt="Salma Aulia - Kartu 2" onerror="this.src='assets/photos/foto-02.webp'">
+              </div>
+              <div class="card-meta">
+                <h4>Cantik Bersama Keaslianmu</h4>
+                <p>Menjadi diri sendiri adalah pesonamu yang paling memikat.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="tarot-card-wrapper" data-index="2">
+          <div class="tarot-card">
+            <div class="card-face card-back-side">
+              <div class="filigree-border">
+                <div class="center-seal">
+                  <span class="seal-suit">♣</span>
+                  <span class="seal-title">ROYAL CLUBS</span>
+                  <span class="seal-tag">SALMA AULIA</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-face card-front-side">
+              <div class="card-header-bar">
+                <span class="card-corner-val">Q ♣</span>
+                <span class="card-name-val">Serene Haven</span>
+                <span class="card-corner-val">♣ Q</span>
+              </div>
+              <div class="card-photo-box">
+                <img src="assets/foto-03.webp" alt="Salma Aulia - Kartu 3" onerror="this.src='assets/photos/foto-03.webp'">
+              </div>
+              <div class="card-meta">
+                <h4>Keteduhan di Tengah Ramai</h4>
+                <p>Selalu menghadirkan rasa nyaman saat bersama.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="tarot-card-wrapper" data-index="3">
+          <div class="tarot-card">
+            <div class="card-face card-back-side">
+              <div class="filigree-border">
+                <div class="center-seal">
+                  <span class="seal-suit">♥</span>
+                  <span class="seal-title">TWO OF HEARTS</span>
+                  <span class="seal-tag">HAMDI × SALMA</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-face card-front-side">
+              <div class="card-header-bar">
+                <span class="card-corner-val">2 ♥</span>
+                <span class="card-name-val">Shared Story</span>
+                <span class="card-corner-val">♥ 2</span>
+              </div>
+              <div class="card-photo-box">
+                <img src="assets/foto-04.webp" alt="Salma & Hamdi - Kartu 4" onerror="this.src='assets/photos/foto-04.webp'">
+              </div>
+              <div class="card-meta">
+                <h4>Kita dalam Satu Bingkai</h4>
+                <p>Kenangan sederhana yang selalu membekas manis.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="tarot-card-wrapper" data-index="4">
+          <div class="tarot-card">
+            <div class="card-face card-back-side">
+              <div class="filigree-border">
+                <div class="center-seal">
+                  <span class="seal-suit">♠</span>
+                  <span class="seal-title">ACE OF SPADES</span>
+                  <span class="seal-tag">SALMA AULIA</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-face card-front-side">
+              <div class="card-header-bar">
+                <span class="card-corner-val">A ♠</span>
+                <span class="card-name-val">Gentle Power</span>
+                <span class="card-corner-val">♠ A</span>
+              </div>
+              <div class="card-photo-box">
+                <img src="assets/foto-05.webp" alt="Salma Aulia - Kartu 5" onerror="this.src='assets/photos/foto-05.webp'">
+              </div>
+              <div class="card-meta">
+                <h4>Hal Kecil yang Berarti</h4>
+                <p>Setiap kata dan perhatian sederhana yang tulus.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="tarot-card-wrapper" data-index="5">
+          <div class="tarot-card">
+            <div class="card-face card-back-side">
+              <div class="filigree-border">
+                <div class="center-seal">
+                  <span class="seal-suit">♦</span>
+                  <span class="seal-title">QUEEN OF DIAMONDS</span>
+                  <span class="seal-tag">SALMA AULIA</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-face card-front-side">
+              <div class="card-header-bar">
+                <span class="card-corner-val">Q ♦</span>
+                <span class="card-name-val">Shining Soul</span>
+                <span class="card-corner-val">♦ Q</span>
+              </div>
+              <div class="card-photo-box">
+                <img src="assets/foto-06.webp" alt="Salma Aulia - Kartu 6" onerror="this.src='assets/photos/foto-06.webp'">
+              </div>
+              <div class="card-meta">
+                <h4>Tetap Menjadi Salma</h4>
+                <p>Sosok mengagumkan yang dicintai apa adanya.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="tarot-card-wrapper" data-index="6">
+          <div class="tarot-card">
+            <div class="card-face card-back-side">
+              <div class="filigree-border">
+                <div class="center-seal">
+                  <span class="seal-suit">♥</span>
+                  <span class="seal-title">THE SUN & HEARTS</span>
+                  <span class="seal-tag">FUTURE & BEYOND</span>
+                </div>
+              </div>
+            </div>
+            <div class="card-face card-front-side">
+              <div class="card-header-bar">
+                <span class="card-corner-val">10 ♥</span>
+                <span class="card-name-val">New Chapter</span>
+                <span class="card-corner-val">♥ 10</span>
+              </div>
+              <div class="card-photo-box">
+                <img src="assets/foto-07.webp" alt="Salma Aulia - Kartu 7" onerror="this.src='assets/photos/foto-07.webp'">
+              </div>
+              <div class="card-meta">
+                <h4>Babak Baru Penuh Berkah</h4>
+                <p>Semoga setiap impianmu menemukan jalan mewujud.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Photo Memory Gallery Section -->
-    <section class="section-container" id="gallerySection">
-      <div class="section-header text-center">
-        <span class="section-tag">Moments & Memories</span>
-        <h2 class="section-title">Galeri Senyum & Cerita</h2>
-        <p class="section-subtitle">Potret-potret manis perjalanan waktu. Klik foto mana saja untuk melihat tampilan lebih dekat.</p>
-      </div>
-
-      <!-- Photo Upload Helper (Local Dynamic Addition) -->
-      <div class="gallery-toolbar glass-card">
-        <div class="toolbar-info">
-          <span>📸 Menampilkan foto-foto Salma yang manis</span>
+    <!-- Card Detail Modal / Lightbox -->
+    <div class="card-modal" id="cardModal">
+      <div class="modal-backdrop" id="modalBackdrop"></div>
+      <div class="modal-window gold-frame">
+        <button class="modal-close-btn" id="modalCloseBtn">&times;</button>
+        <div class="modal-img-wrap">
+          <img src="" alt="Salma Aulia" id="modalImg">
         </div>
-        <div class="toolbar-actions">
-          <label for="photoUploadInput" class="btn-custom-upload" title="Tambah foto baru dari laptop/komputer">
-            ➕ Tambah Foto dari Komputer
-          </label>
-          <input type="file" id="photoUploadInput" accept="image/*" multiple class="hidden-input">
-        </div>
-      </div>
-
-      <!-- Polaroids Grid -->
-      <div class="polaroid-grid" id="polaroidGrid">
-        <!-- Item 1 -->
-        <div class="polaroid-card" data-index="0" data-tilt>
-          <div class="tape-corner"></div>
-          <div class="polaroid-img-box">
-            <img src="assets/foto-01.webp" alt="Salma Aulia - Momen 1" loading="lazy" onerror="this.src='assets/photos/WhatsApp Image 2026-08-09 at 19.35.31.jpeg'">
+        <div class="modal-text-wrap">
+          <span class="modal-card-tag" id="modalCardTag">ROYAL EDITION</span>
+          <h3 id="modalTitle">Judul Kenangan</h3>
+          <p id="modalDesc">Deskripsi dan puisi tentang momen ini.</p>
+          <div class="modal-controls">
+            <button class="btn-royal-outline" id="modalPrevBtn">◄ Kartu Sebelumnya</button>
+            <button class="btn-royal-gold" id="modalNextBtn">Kartu Berikutnya ►</button>
           </div>
-          <div class="polaroid-caption">
-            <p class="caption-title">Senyum yang Menghangatkan</p>
-            <p class="caption-date">Always shining bright ✨</p>
-          </div>
-        </div>
-
-        <!-- Item 2 -->
-        <div class="polaroid-card" data-index="1" data-tilt>
-          <div class="pin-badge">📌</div>
-          <div class="polaroid-img-box">
-            <img src="assets/foto-02.webp" alt="Salma Aulia - Momen 2" loading="lazy" onerror="this.src='assets/photos/WhatsApp Image 2026-08-09 at 19.35.32.jpeg'">
-          </div>
-          <div class="polaroid-caption">
-            <p class="caption-title">Anggun & Autentik</p>
-            <p class="caption-date">Cantik dengan caramu sendiri 🌸</p>
-          </div>
-        </div>
-
-        <!-- Item 3 -->
-        <div class="polaroid-card" data-index="2" data-tilt>
-          <div class="tape-corner"></div>
-          <div class="polaroid-img-box">
-            <img src="assets/foto-03.webp" alt="Salma Aulia - Momen 3" loading="lazy" onerror="this.src='assets/photos/WhatsApp Image 2026-08-09 at 19.35.33.jpeg'">
-          </div>
-          <div class="polaroid-caption">
-            <p class="caption-title">Ketenangan & Keteduhan</p>
-            <p class="caption-date">Selalu jadi tempat yang nyaman 💫</p>
-          </div>
-        </div>
-
-        <!-- Item 4 -->
-        <div class="polaroid-card highlight-card" data-index="3" data-tilt>
-          <div class="tape-corner right"></div>
-          <div class="polaroid-img-box">
-            <img src="assets/foto-04.webp" alt="Salma & Hamdi" loading="lazy" onerror="this.src='assets/photos/WhatsApp Image 2026-08-09 at 19.35.33 (1).jpeg'">
-          </div>
-          <div class="polaroid-caption">
-            <p class="caption-title">Bersama Dalam Satu Cerita</p>
-            <p class="caption-date">Momen yang selalu berharga 🤍</p>
-          </div>
-        </div>
-
-        <!-- Item 5 -->
-        <div class="polaroid-card" data-index="4" data-tilt>
-          <div class="pin-badge">📌</div>
-          <div class="polaroid-img-box">
-            <img src="assets/foto-05.webp" alt="Salma Aulia - Momen 5" loading="lazy" onerror="this.src='assets/photos/WhatsApp Image 2026-08-09 at 19.35.34.jpeg'">
-          </div>
-          <div class="polaroid-caption">
-            <p class="caption-title">Cerita Kecil yang Berarti</p>
-            <p class="caption-date">Setiap tawa punya warnanya 🌷</p>
-          </div>
-        </div>
-
-        <!-- Item 6 -->
-        <div class="polaroid-card" data-index="5" data-tilt>
-          <div class="tape-corner"></div>
-          <div class="polaroid-img-box">
-            <img src="assets/foto-06.webp" alt="Salma Aulia - Momen 6" loading="lazy" onerror="this.src='assets/photos/WhatsApp Image 2026-08-09 at 19.35.35.jpeg'">
-          </div>
-          <div class="polaroid-caption">
-            <p class="caption-title">Tetap Menjadi Salma</p>
-            <p class="caption-date">Sosok yang selalu dikagumi 🌿</p>
-          </div>
-        </div>
-
-        <!-- Item 7 -->
-        <div class="polaroid-card" data-index="6" data-tilt>
-          <div class="tape-corner right"></div>
-          <div class="polaroid-img-box">
-            <img src="assets/foto-07.webp" alt="Salma Aulia - Momen 7" loading="lazy" onerror="this.src='assets/photos/WhatsApp Image 2026-08-09 at 19.35.36.jpeg'">
-          </div>
-          <div class="polaroid-caption">
-            <p class="caption-title">Menuju Masa Depan Indah</p>
-            <p class="caption-date">Babak baru yang penuh berkah 🌟</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Interactive Lightbox Modal -->
-    <div class="lightbox-modal" id="lightboxModal">
-      <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
-      <div class="lightbox-content">
-        <button class="lightbox-close" id="lightboxClose" aria-label="Tutup">&times;</button>
-        <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Sebelumnya">&#10094;</button>
-        <button class="lightbox-nav next" id="lightboxNext" aria-label="Berikutnya">&#10095;</button>
-        <div class="lightbox-image-wrap">
-          <img src="" alt="Salma Aulia" id="lightboxImg">
-        </div>
-        <div class="lightbox-details">
-          <h3 id="lightboxTitle">Judul Foto</h3>
-          <p id="lightboxCaption">Keterangan foto</p>
         </div>
       </div>
     </div>
 
-    <!-- 7 Special Reasons Why Salma is Wonderful (Interactive Accordion/Cards) -->
-    <section class="section-container" id="reasonsSection">
-      <div class="section-header text-center">
-        <span class="section-tag">Special Things</span>
-        <h2 class="section-title">7 Hal yang Bikin Salma Istimewa</h2>
-        <p class="section-subtitle">Setiap sisi dari dirimu selalu punya cara untuk membuat orang lain bersyukur mengenalmu.</p>
+    <!-- The Golden Flame Lantern / Make a Wish -->
+    <section class="section-block" id="lanternSection">
+      <div class="section-title-wrap text-center">
+        <span class="section-sub-gold">THE SACRED FLAME</span>
+        <h2 class="section-heading">Lentera Lilin Emas & Harapan</h2>
+        <p class="section-desc">Diiringi petikan gitar melodi, pejamkan matamu, sampaikan satu harapan terdalam, lalu tiup lilin emas ini.</p>
       </div>
 
-      <div class="reasons-grid">
-        <div class="reason-card glass-card">
-          <div class="reason-number">01</div>
-          <div class="reason-icon">🌸</div>
-          <h3>Ketulusan Hati</h3>
-          <p>Caramu memperlakukan orang lain dengan ramah dan penuh perhatian tanpa pamrih adalah hal yang begitu langka.</p>
+      <div class="lantern-altar gold-frame">
+        <!-- Status -->
+        <div class="altar-status" id="altarStatus">
+          <span class="altar-icon">🕯️</span>
+          <span id="altarStatusText">Tiga lilin emas menyala abadi. Siapkan harapanmu...</span>
         </div>
 
-        <div class="reason-card glass-card">
-          <div class="reason-number">02</div>
-          <div class="reason-icon">✨</div>
-          <h3>Pancaran Energi Positif</h3>
-          <p>Saat kamu tersenyum atau bercerita antusias, suasana di sekitar langsung terasa jauh lebih ceria dan menyenangkan.</p>
+        <!-- 3D Luxury Candle Altar -->
+        <div class="candles-altar-container">
+          <div class="altar-pillar">
+            <div class="pillar-candle" id="candle1">
+              <div class="flame-halo"></div>
+              <div class="gold-flame" id="flame1"></div>
+              <div class="smoke-trail" id="smoke1"></div>
+              <div class="gold-wick"></div>
+              <div class="taper-body"></div>
+            </div>
+            <div class="pillar-candle main-candle" id="candle2">
+              <div class="flame-halo"></div>
+              <div class="gold-flame" id="flame2"></div>
+              <div class="smoke-trail" id="smoke2"></div>
+              <div class="gold-wick"></div>
+              <div class="taper-body"></div>
+            </div>
+            <div class="pillar-candle" id="candle3">
+              <div class="flame-halo"></div>
+              <div class="gold-flame" id="flame3"></div>
+              <div class="smoke-trail" id="smoke3"></div>
+              <div class="gold-wick"></div>
+              <div class="taper-body"></div>
+            </div>
+          </div>
+          <div class="marble-pedestal">
+            <div class="pedestal-trim"></div>
+            <div class="pedestal-text">DEDICATED TO SALMA AULIA ✨</div>
+          </div>
         </div>
 
-        <div class="reason-card glass-card">
-          <div class="reason-number">03</div>
-          <div class="reason-icon">☕</div>
-          <h3>Tempat Berbagi Nyaman</h3>
-          <p>Bisa mengobrol denganmu tentang apa saja terasa begitu mengalir dan selalu bikin hati terasa tenang.</p>
+        <!-- Controls -->
+        <div class="lantern-actions">
+          <button class="btn-royal-gold pulse-btn" id="btnExtinguish">
+            💨 Tiup Lilin & Lepaskan Harapan
+          </button>
+          <button class="btn-royal-outline hidden" id="btnRelight">
+            ✨ Nyalakan Lentera Kembali
+          </button>
         </div>
 
-        <div class="reason-card glass-card">
-          <div class="reason-number">04</div>
-          <div class="reason-icon">💪</div>
-          <h3>Kekuatan & Ketabahan</h3>
-          <p>Meski ada hari-hari yang melelahkan, kamu selalu mampu bangkit dan menghadapinya dengan anggun.</p>
-        </div>
-
-        <div class="reason-card glass-card">
-          <div class="reason-number">05</div>
-          <div class="reason-icon">🎨</div>
-          <h3>Selera & Karakter Unik</h3>
-          <p>Pilihan gayamu, pandanganmu tentang hal-hal kecil, dan caramu melihat dunia membuatmu begitu memikat.</p>
-        </div>
-
-        <div class="reason-card glass-card">
-          <div class="reason-number">06</div>
-          <div class="reason-icon">🤍</div>
-          <h3>Selalu Jadi Diri Sendiri</h3>
-          <p>Kamu tidak perlu berpura-pura menjadi siapapun, karena Salma apa adanya adalah yang paling sempurna.</p>
-        </div>
-
-        <div class="reason-card glass-card span-all">
-          <div class="reason-number">07</div>
-          <div class="reason-icon">🌟</div>
-          <h3>Kehadiranmu Adalah Hadiah</h3>
-          <p>Dunia menjadi tempat yang jauh lebih indah dan berarti hanya karena kamu ada di dalamnya.</p>
+        <!-- Wish Reveal Scroll -->
+        <div class="wish-reveal-scroll gold-frame hidden" id="wishRevealScroll">
+          <div class="scroll-crest">✦ A PRAYER FOR SALMA ✦</div>
+          <p class="scroll-quote">
+            “Semoga di usia yang baru ini, setiap jalan yang Salma pilih dibimbing oleh kemudahan, setiap langkah dilindungi kesehatan, dan hatimu senantiasa dipenuhi ketenangan yang tak pernah pudar.”
+          </p>
+          <span class="scroll-author">— Selalu dari Hamdi 🤍</span>
         </div>
       </div>
     </section>
 
-    <!-- Interactive Birthday Wishes Board (Papan Harapan) -->
-    <section class="section-container" id="wishesSection">
-      <div class="section-header text-center">
-        <span class="section-tag">Wishes & Prayers</span>
-        <h2 class="section-title">Papan Harapan & Doa</h2>
-        <p class="section-subtitle">Tuliskan doa atau pesan manis untuk Salma. Pesan akan tersimpan langsung di papan ini!</p>
+    <!-- The Royal Parchment Letter (Surat dari Hati Hamdi) -->
+    <section class="section-block" id="letterSection">
+      <div class="section-title-wrap text-center">
+        <span class="section-sub-gold">THE WRITTEN WORD</span>
+        <h2 class="section-heading">Surat Segel Emas</h2>
+        <p class="section-desc">Pesan khusus yang disimpan rapat di balik segel lilin kerajaan.</p>
       </div>
 
-      <div class="wishes-layout">
-        <!-- Wish Input Form -->
-        <div class="wish-form-card glass-card">
-          <h3>💌 Kirimkan Doa untuk Salma</h3>
-          <form id="wishForm">
-            <div class="form-group">
-              <label for="senderName">Nama Pengirim:</label>
-              <input type="text" id="senderName" placeholder="Contoh: Hamdi / Sahabatmu" required maxlength="40">
-            </div>
-            <div class="form-group">
-              <label for="wishMessageInput">Pesan & Doa Terbaikmu:</label>
-              <textarea id="wishMessageInput" rows="4" placeholder="Tuliskan ucapan dan harapan terbaikmu untuk Salma Aulia..." required maxlength="300"></textarea>
-            </div>
-            <div class="form-group">
-              <label>Pilih Emotikon Doa:</label>
-              <div class="emoji-selector" id="emojiSelector">
-                <label><input type="radio" name="wishEmoji" value="🎂" checked> <span>🎂</span></label>
-                <label><input type="radio" name="wishEmoji" value="✨"> <span>✨</span></label>
-                <label><input type="radio" name="wishEmoji" value="🤍"> <span>🤍</span></label>
-                <label><input type="radio" name="wishEmoji" value="🌸"> <span>🌸</span></label>
-                <label><input type="radio" name="wishEmoji" value="🎁"> <span>🎁</span></label>
-                <label><input type="radio" name="wishEmoji" value="🎉"> <span>🎉</span></label>
+      <div class="royal-envelope-wrap">
+        <div class="royal-envelope" id="royalEnvelope">
+          <div class="envelope-case">
+            <div class="case-back"></div>
+            <!-- Letter Sheet -->
+            <div class="parchment-sheet" id="parchmentSheet">
+              <div class="parchment-header">
+                <span class="parchment-to">Untuk Salma Aulia,</span>
+                <span class="parchment-date">Hari Kelahiranmu</span>
+              </div>
+              <div class="parchment-content">
+                <p><strong>Hai, Salma.</strong></p>
+                <p>Lagu <em>Shape of My Heart</em> mengingatkan aku bahwa di dunia ini banyak orang yang mengejar kemenangan, simbol, dan kekuasaan seperti kartu prajurit atau kilau permata.</p>
+                <p>Tapi bagiku, hal paling berharga bukanlah hal-hal yang riuh itu. Hal paling bernilai adalah ketulusan sederhana: caramu tersenyum, kehangatan saat mengobrol denganmu, dan bagaimana kehadiranmu selalu berhasil membuat hari-hari biasa terasa punya makna.</p>
+                <p>Selamat bertambah usia, Salma. Terima kasih sudah tumbuh menjadi seseorang yang begitu mengagumkan. Apapun jalan yang sedang dan akan kamu tempuh, jangan pernah ragu pada kemampuanmu. Kamu luar biasa, kamu sangat disayangi, dan kamu pantas menerima semua kebahagiaan terbaik di dunia.</p>
+              </div>
+              <div class="parchment-sign">
+                <span>Dengan segenap rasa dan doa terbaik,</span>
+                <strong>Hamdi 🤍</strong>
               </div>
             </div>
-            <button type="submit" class="btn-primary w-100">
-              <span>🚀 Sematkan di Papan Harapan</span>
+            <div class="case-front"></div>
+            <div class="case-flap" id="caseFlap"></div>
+            <div class="wax-seal-gold" id="waxSealGold">
+              <span class="seal-monogram">H ♥ S</span>
+              <span class="seal-hint">Ketuk untuk Buka Surat</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="envelope-trigger-row">
+          <button class="btn-royal-gold" id="btnToggleEnvelope">
+            ✉️ <span id="envButtonLabel">Buka Segel & Baca Surat</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Constellation Wishes Board -->
+    <section class="section-block" id="wishesSection">
+      <div class="section-title-wrap text-center">
+        <span class="section-sub-gold">CELESTIAL BLESSINGS</span>
+        <h2 class="section-heading">Papan Doa Rasi Bintang</h2>
+        <p class="section-desc">Sematkan doa atau harapan terbaikmu untuk Salma. Pesan akan tersimpan selamanya di rasi bintang ini.</p>
+      </div>
+
+      <div class="constellation-grid">
+        <!-- Input Form -->
+        <div class="constellation-form-card gold-frame">
+          <h3>💌 Tuliskan Doa & Pesanmu</h3>
+          <form id="constellationForm">
+            <div class="form-field">
+              <label for="senderName">Nama:</label>
+              <input type="text" id="senderName" placeholder="Contoh: Hamdi / Sahabatmu" required maxlength="40">
+            </div>
+            <div class="form-field">
+              <label for="wishText">Pesan Doa:</label>
+              <textarea id="wishText" rows="4" placeholder="Tuliskan harapan dan doa terbaikmu untuk Salma Aulia..." required maxlength="300"></textarea>
+            </div>
+            <div class="form-field">
+              <label>Pilih Simbol Kartu:</label>
+              <div class="suit-radio-group">
+                <label><input type="radio" name="wishSuit" value="♥" checked> <span class="suit-opt heart">♥</span></label>
+                <label><input type="radio" name="wishSuit" value="♦"> <span class="suit-opt diamond">♦</span></label>
+                <label><input type="radio" name="wishSuit" value="♠"> <span class="suit-opt spade">♠</span></label>
+                <label><input type="radio" name="wishSuit" value="♣"> <span class="suit-opt club">♣</span></label>
+                <label><input type="radio" name="wishSuit" value="👑"> <span class="suit-opt crown">👑</span></label>
+              </div>
+            </div>
+            <button type="submit" class="btn-royal-gold w-100">
+              ✦ Sematkan di Rasi Bintang
             </button>
           </form>
         </div>
 
-        <!-- Wishes List Container -->
-        <div class="wishes-wall-container" id="wishesWallContainer">
-          <div class="wishes-wall-header">
-            <h4>Pesan yang Telah Masuk (<span id="wishesCount">0</span>)</h4>
-            <span class="wishes-wall-tag">✨ Penuh Kasih & Doa</span>
+        <!-- Wishes Stream -->
+        <div class="constellation-stream-card gold-frame">
+          <div class="stream-header">
+            <h4>Doa-Doa Terpilih (<span id="wishCountVal">0</span>)</h4>
+            <span class="gold-badge">Eterna Collection</span>
           </div>
-          <div class="wishes-list" id="wishesList">
-            <!-- Dynamically populated -->
+          <div class="wishes-stream-list" id="wishesStreamList">
+            <!-- Dynamic items -->
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Interactive Love & Appreciation Meter -->
-    <section class="section-container" id="loveSection">
-      <div class="love-meter-card glass-card text-center">
-        <span class="section-tag">Birthday Love Meter</span>
-        <h2>Kirim Energi Doa & Cinta</h2>
-        <p>Setiap klik mengirimkan doa tulus dan bunga cinta untuk hari bahagia Salma!</p>
-
-        <div class="love-btn-wrapper">
-          <button class="big-heart-btn" id="bigHeartBtn" aria-label="Kirim Cinta">
-            <span class="heart-icon">💖</span>
-          </button>
-        </div>
-
-        <div class="progress-bar-wrap">
-          <div class="progress-bar-fill" id="loveProgressFill"></div>
-        </div>
-        <div class="progress-stats">
-          <span id="lovePercentage">0%</span> • <span id="loveStatusText">Ketuk tombol hati untuk mengisi kebahagiaan!</span>
         </div>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer class="site-footer text-center">
-      <div class="footer-cake">🎂 ✨ 🤍 ✨ 🎂</div>
-      <h2>Once Again, Happy Birthday Salma Aulia!</h2>
-      <p>Dibuat dengan segenap rasa dan doa terbaik.</p>
-      <div class="footer-actions">
-        <button class="btn-secondary" id="btnScrollTop">
-          ↑ Kembali ke Atas
-        </button>
+    <footer class="royal-footer text-center">
+      <div class="footer-suits">♠ • ♥ • ♦ • ♣</div>
+      <h2 class="footer-title">The Shape of My Heart</h2>
+      <p class="footer-sub">A Lifetime Dedication for Salma Aulia</p>
+      <div class="footer-scroll-top">
+        <button class="btn-royal-outline" id="btnBackTop">↑ Kembali ke Puncak</button>
       </div>
-      <p class="copyright">© Special Birthday Celebration for Salma Aulia • Powered with Love</p>
+      <p class="footer-copy">© Dedicated with Love • Salma Aulia Birthday Experience</p>
     </footer>
 
   </div>
